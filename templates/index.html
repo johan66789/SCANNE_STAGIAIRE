@@ -11,7 +11,7 @@
 
     <div class="bg-white p-8 rounded-lg shadow-lg max-w-sm w-full">
         <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Enregistrement d'Arrivée :</h1>
-        <form action="/scan_traine" method="post">
+        <form action="/scan_trainee" method="post">
             <img src="{{ url_for('static', filename='pictures/docteur_pc_logo.jpg') }}" alt="Logo de l'entreprise" class="w-32 mx-auto mb-6">
 
             <label for="nom" class="block text-gray-600 font-semibold mb-1">Nom:</label>
@@ -20,9 +20,19 @@
             <label for="prenom" class="block text-gray-600 font-semibold mb-1">Prénom:</label>
             <input type="text" id="prenom" name="prenom" required class="w-full p-2 border border-gray-300 rounded mb-6">
 
+            <h2 class="text-xl font-semibold text-green-600 mb-4">Signature :</h2>
+            <canvas id="signature-canvas" width="300" height="200" class="border border-green-500 rounded-md mb-4"></canvas>
+            <center>
+                <button type="button" id="clear-signature">
+                    <img src="{{url_for('static',filename='./pictures/delete.png')}}" alt="Effacer" style="width: 20px;">
+                </button>
+            </center>
+            <input type="hidden" id="signature-data" name="signature" required>
+            
             <button type="submit" class="w-full bg-green-500 text-white py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Enregistrer</button>
         </form>
     </div>
 
 </body>
+<script src="{{url_for('static',filename='js/signature.js')}}"></script>
 </html>
