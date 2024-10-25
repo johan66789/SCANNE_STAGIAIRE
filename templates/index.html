@@ -14,6 +14,12 @@
         <form action="/scan_trainee" method="post">
             <img src="{{ url_for('static', filename='pictures/docteur_pc_logo.jpg') }}" alt="Logo de l'entreprise" class="w-32 mx-auto mb-6">
 
+            <label for="option" class="block text-gray-600 font-semibold mb-1">role</label>
+            <select name="role" class="w-full p-2 border border-gray-300 rounded mb-4" id="">
+                <option value="employer">Employer</option>
+                <option value="stagiaire">Stagiaire</option>
+                <option value="travailleur">Travailleur</option>
+            </select>
             <label for="nom" class="block text-gray-600 font-semibold mb-1">Nom:</label>
             <input type="text" id="nom" name="nom" required class="w-full p-2 border border-gray-300 rounded mb-4">
 

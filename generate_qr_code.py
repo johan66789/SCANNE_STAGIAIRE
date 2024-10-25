@@ -1,8 +1,8 @@
 import qrcode
 
 # Adresse IP locale de l'ordinateur exécutant le serveur Flask
-url = "http://172.24.1.189:5000/"
-# url = "http://192.168.100.60:5000/"
+# url = "http://172.24.1.189:5000/"
+url = "http://192.168.100.60:5000/"
 # url = "https://cloud.docteurpc.ci/"
 
 # Générer le code QR

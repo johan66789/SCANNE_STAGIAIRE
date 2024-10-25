@@ -26,13 +26,17 @@ app.config['SIGNATURES_FOLDER'] = SIGNATURES_FOLDER
 
 # Fonction pour obtenir la connexion MySQL
 def get_db_connection():
-    return pymysql.connect(
+    connection = pymysql.connect(
         host=app.config['MYSQL_HOST'],
         user=app.config['MYSQL_USER'],
         password=app.config['MYSQL_PASSWORD'],
         database=app.config['MYSQL_DB'],
         cursorclass=pymysql.cursors.DictCursor  # Pour récupérer les résultats sous forme de dictionnaires
     )
+    with connection.cursor() as cursor:
+        cursor.execute("SET time_zone = '+00:00';")  # Ajustement du fuseau horaire
+    return connection
+
 
 # Route pour afficher le formulaire HTML
 @app.route('/')
@@ -42,6 +46,7 @@ def Index():
 # Route pour enregistrer l'arrivée
 @app.route('/scan_trainee', methods=['POST'])
 def Scan_traine():
+    role_worker = request.form['role']
     nom = request.form['nom']
     prenom = request.form['prenom']
     signature = request.form['signature']  # Récupérer la signature
@@ -65,10 +70,10 @@ def Scan_traine():
     try:
         with connection.cursor() as cursor:
             sql = """
-                INSERT INTO trainee (nom, prenoms, signature, heure, date)
-                VALUES (%s, %s, %s, %s, %s)
+                INSERT INTO trainee (role,nom, prenoms, signature, heure, date)
+                VALUES (%s, %s, %s, %s, %s, %s)
             """
-            cursor.execute(sql, (nom, prenom, signature_filename, time_str, date_str))
+            cursor.execute(sql, (role_worker, nom, prenom, signature_filename, time_str, date_str))
         connection.commit()
     finally:
         connection.close()
